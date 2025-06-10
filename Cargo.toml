@@ -25,3 +25,13 @@ tokio = { version = "1.45", features = ["macros", "rt-multi-thread", "parking_lo
 
 [target.'cfg(not(target_env = "msvc"))'.dependencies]
 tikv-jemallocator = "0.6"
+
+[profile.release]
+opt-level = 3
+debug = false
+rpath = false
+lto = true
+overflow-checks = false
+debug-assertions = false
+codegen-units = 1
+panic = "abort"
