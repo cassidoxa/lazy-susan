@@ -1,0 +1,37 @@
+[workspace]
+members = [".", "migration"]
+
+[package]
+name = "lazy-susan"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "1.0.98"
+atom_syndication = { version = "0.12.7", features = ["with-serde"] }
+chrono = { version = "0.4.41", default-features = false, features = ["std", "now", "serde"] }
+dotenvy = "0.15.7"
+env_logger = "0.11"
+http-body-util = "0.1"
+hyper = { version = "1", features = ["http1", "server"] }
+hyper-util = { version = "0.1", features = ["http1", "server", "tokio"] }
+log = "0.4"
+pulldown-cmark = { version = "0.13.0", features = ["simd"] }
+sea-orm = { version = "1.1.0", features = [ "sqlx-postgres", "runtime-tokio-rustls", "macros", "with-chrono", "with-json", "with-uuid" ] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+sha2 = { version = "0.10.9", features = ["asm"] }
+tokio = { version = "1.45", features = ["macros", "rt-multi-thread", "parking_lot"] }
+
+[target.'cfg(not(target_env = "msvc"))'.dependencies]
+tikv-jemallocator = "0.6"
+
+[profile.release]
+opt-level = 3
+debug = false
+rpath = false
+lto = true
+overflow-checks = false
+debug-assertions = false
+codegen-units = 1
+panic = "abort"

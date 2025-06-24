@@ -1,0 +1,15 @@
+[Unit]
+Description=lazy-susan Service
+After=multi-user.target
+
+[Service]
+User=lazy-susan
+Group=lazy-susan
+Type=idle
+WorkingDirectory=/opt/lazy-susan
+ExecStart=/opt//target/release/lazy-susan
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
